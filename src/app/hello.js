@@ -1,8 +1,6 @@
-angular
-  .module('app')
-  .component('app', {
-    templateUrl: 'app/hello.html',
-    controller: function () {
-      this.hello = 'Hello World!';
-    }
-  });
+module.exports = {
+  template: require('./hello.html'),
+  controller: function () {
+    this.hello = 'Hello World!';
+  }
+};
