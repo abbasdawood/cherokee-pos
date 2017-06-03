@@ -4,7 +4,7 @@ function myComponentController($window, $scope, $log) {
     $window.alert('Say Hi');
   };
   $scope.$on('itemId', function (event, message) {
-    $log.log(message);
+    $log.log('recieved ' + message);
   });
 }
 

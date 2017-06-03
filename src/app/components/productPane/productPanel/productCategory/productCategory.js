@@ -26,6 +26,23 @@ function productCategoryController($window, $scope, $log, $rootScope) {
     description: null,
     order: 120,
     rate: 180,
+    category: 'fast food',
+    stats: {
+      __type: 'Relation',
+      className: 'ProductStats'
+    },
+    updatedAt: '2017-06-01T09:27:35.382Z',
+    tax: 0,
+    words: ['rice', 'triple', 'schezwan', 'fried', 'vegetable', 'tri',
+      'sch', 'fri', 'ric'
+    ]
+  }, {
+    id: 'asdfghj',
+    name: ' fried rice',
+    subtitle: 'Vegetable',
+    description: null,
+    order: 120,
+    rate: 180,
     category: 'rice',
     stats: {
       __type: 'Relation',
@@ -37,12 +54,16 @@ function productCategoryController($window, $scope, $log, $rootScope) {
       'sch', 'fri', 'ric'
     ]
   }];
-  angular.forEach(jsonobj, function (element, index) {
-    vm.names.push({
-      name: element.name,
-      id: element.id
+  $scope.$on('showCategory', function (event, category) {
+    var categoryDisplay = category;
+    vm.names = [];
+    angular.forEach(jsonobj, function (element, index) {
+      if (categoryDisplay === element.category) {
+        vm.names.push(element);
+      }
     });
   });
+
   this.sendItemId = function (id) {
     $log.log('send  ' + id);
     $rootScope.$broadcast('itemId', id);
