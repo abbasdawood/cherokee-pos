@@ -1,10 +1,11 @@
 {
   "dependencies": {
     "angular": "^1.6.2",
+    "angular-filter": "^0.5.16",
     "angular-ui-bootstrap": "^2.5.0",
     "angular-ui-router": "1.0.0-beta.3",
-    "angular-filter": "^0.5.16",
     "bootstrap": "^3.3.7",
+    "lodash": "^4.17.4",
     "todomvc-app-css": "^2.0.6"
   },
   "devDependencies": {

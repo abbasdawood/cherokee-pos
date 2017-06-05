@@ -66,7 +66,10 @@ function productCategoryController($window, $scope, $log, $rootScope) {
 
   this.sendItemId = function (obj) {
     $log.log('send  ' + obj.id);
-    $rootScope.$broadcast('itemObj', obj);
+    $rootScope.$broadcast('itemObj', {
+      id: obj.id,
+      name: obj.name
+    });
   };
 }
 module.exports = {
