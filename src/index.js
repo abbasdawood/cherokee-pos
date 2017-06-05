@@ -4,7 +4,6 @@ require('bootstrap');
 var angular = require('angular');
 
 var hello = require('./app/hello');
-var myComponent = require('./app/components/game/myComponent');
 var orderNav = require('./app/components/orderPane/orderNav/orderNav');
 
 require('angular-ui-router');
@@ -20,5 +19,4 @@ angular
   .module(app, ['ui.router', 'ui.bootstrap'])
   .config(routesConfig)
   .component('app', hello)
-  .component('myComponent', myComponent)
   .component('orderNav', orderNav);
