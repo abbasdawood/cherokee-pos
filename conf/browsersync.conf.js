@@ -8,6 +8,6 @@ module.exports = function () {
         conf.paths.src
       ]
     },
-    open: true
+    open: false
   };
 };

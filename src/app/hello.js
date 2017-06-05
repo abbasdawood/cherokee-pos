@@ -1,6 +1,6 @@
 module.exports = {
   template: require('./hello.html'),
-  controller: function ($scope, $log) {
+  controller: function () {
     this.hello = 'Hello World!';
   }
 };
