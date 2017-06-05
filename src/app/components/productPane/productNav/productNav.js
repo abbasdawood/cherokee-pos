@@ -1,4 +1,4 @@
-function productNavController() {
+function productNavController($rootScope) {
   this.text = 'My brand new component!';
   var vm = this;
 
@@ -38,7 +38,7 @@ function productNavController() {
       'sch', 'fri', 'ric'
     ]
   }];
-  angular.forEach(jsonobj, function (element, index) {
+  angular.forEach(jsonobj, function (element) {
     vm.categories.push(element.category);
   });
   this.showCategory = function (category) {

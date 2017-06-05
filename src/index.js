@@ -1,14 +1,16 @@
-require('jquery');
-// require('bootstrap-loader');
-require('bootstrap');
 var angular = require('angular');
-
 var hello = require('./app/hello');
+var productNav = require('./app/components/productPane/productNav/productNav');
+var productCategory = require(
+  './app/components/productPane/productPanel/productCategory/productCategory'
+);
 var orderNav = require('./app/components/orderPane/orderNav/orderNav');
-
+require('angular-filter');
 require('angular-ui-router');
 require('angular-ui-bootstrap');
-var routesConfig = require('./routes.js');
+require('bootstrap');
+require('jquery');
+var routesConfig = require('./routes');
 
 require('./index.less');
 
@@ -16,7 +18,9 @@ var app = 'app';
 module.exports = app;
 
 angular
-  .module(app, ['ui.router', 'ui.bootstrap'])
+  .module(app, ['ui.router', 'angular.filter', 'ui.bootstrap'])
   .config(routesConfig)
   .component('app', hello)
+  .component('productNav', productNav)
+  .component('productCategory', productCategory)
   .component('orderNav', orderNav);
