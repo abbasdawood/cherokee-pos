@@ -4,6 +4,7 @@ var productNav = require('./app/components/productPane/productNav/productNav');
 var productCategory = require(
   './app/components/productPane/productPanel/productCategory/productCategory'
 );
+var productCart = require('./app/components/productCart/productCart');
 var orderNav = require('./app/components/orderPane/orderNav/orderNav');
 require('angular-filter');
 require('angular-ui-router');
@@ -23,4 +24,5 @@ angular
   .component('app', hello)
   .component('productNav', productNav)
   .component('productCategory', productCategory)
-  .component('orderNav', orderNav);
+  .component('orderNav', orderNav)
+  .component('productCart'.productCart);

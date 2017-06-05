@@ -64,9 +64,9 @@ function productCategoryController($window, $scope, $log, $rootScope) {
     });
   });
 
-  this.sendItemId = function (id) {
-    $log.log('send  ' + id);
-    $rootScope.$broadcast('itemId', id);
+  this.sendItemId = function (obj) {
+    $log.log('send  ' + obj.id);
+    $rootScope.$broadcast('itemObj', obj);
   };
 }
 module.exports = {
