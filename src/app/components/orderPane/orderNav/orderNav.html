@@ -5,4 +5,9 @@
     	<uib-tab-heading>{{tab}} </uib-tab-heading>
 	</uib-tab>
   </uib-tabset>
+  <div ng-repeat="order in $ctrl.id"> 
+  <li>Order ID - {{order.id}}</li>>
+  <li>Order state - {{order.state}}</li>>
+  <li>Total value - {{order.total}}</li>>
+  </div>
 </div>

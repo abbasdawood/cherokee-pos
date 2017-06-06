@@ -9,7 +9,7 @@ var orderNav = require('./app/components/orderPane/orderNav/orderNav');
 require('angular-ui-router');
 require('angular-ui-bootstrap');
 var routesConfig = require('./routes.js');
-
+var orderService = require('./app/services/order/orderService');
 require('./index.less');
 
 var app = 'app';
@@ -19,4 +19,5 @@ angular
   .module(app, ['ui.router', 'ui.bootstrap'])
   .config(routesConfig)
   .component('app', hello)
-  .component('orderNav', orderNav);
+  .component('orderNav', orderNav)
+  .service('orderService', orderService);
