@@ -1,8 +1,14 @@
+<div infinite-scroll="$ctrl.pageLoad()" infinite-scroll-distance="0" infinite-scroll-disabled='busy' infinite-scroll-immediate-check= false ng-repeat="product in $ctrl.products" ng-click="$ctrl.sendItemId(o) class="component">
+{{product.category}} {{product.name}}
+</div>
+<pre>{{products}}</pre>
 
-<div ng-repeat="(key, value) in $ctrl.products.data | groupBy: 'category' " class="component">
+
+
+<!-- <div ng-repeat="(key, value) in $ctrl.products | groupBy: 'category' " class="component">
 Category : {{key}}
 	<div ng-repeat="o in value"  ng-click="$ctrl.sendItemId(o)">{{o.name}}</div>
   
   <button ng-click="$ctrl.display()">hello</button>
 
-</div>
+</div> -->

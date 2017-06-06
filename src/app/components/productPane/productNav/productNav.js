@@ -10,7 +10,7 @@ function productNavController($rootScope) {
     description: null,
     order: 120,
     rate: 180,
-    category: 'rice',
+    category: 'beverages',
     stats: {
       __type: 'Relation',
       className: 'ProductStats'
