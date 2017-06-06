@@ -1,8 +1,7 @@
 
 <div ng-repeat="(key, value) in $ctrl.names | groupBy: 'category' " class="component">
-  
-  	Category : {{key}}
-  	<div ng-repeat="o in value"  ng-click="$ctrl.sendItemId(o.id)" style="border:1px solid black; width: 100px; float:left; height:100px; margin:20px">{{o.name}}</div>
+Category : {{key}}
+	<div ng-repeat="o in value"  ng-click="$ctrl.sendItemId(o)">{{o.name}}</div>
   
   <button ng-click="$ctrl.display()">hello</button>
 
