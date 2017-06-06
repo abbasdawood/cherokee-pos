@@ -14,6 +14,7 @@ require('bootstrap');
 require('jquery');
 var routesConfig = require('./routes');
 var orderService = require('./app/services/order/orderService');
+var stockService = require('./app/services/stock/stockService');
 require('./index.less');
 var app = 'app';
 module.exports = app;
@@ -24,6 +25,7 @@ angular
   .component('app', hello)
   .component('productNav', productNav)
   .component('productCategory', productCategory)
-  .component('orderNav', orderNav)
+  // .component('orderNav', orderNav)
   .component('productCart', productCart)
+  .service('stockService', stockService)
   .service('orderService', orderService);
