@@ -13,9 +13,8 @@ require('angular-ui-bootstrap');
 require('bootstrap');
 require('jquery');
 var routesConfig = require('./routes');
-
+var orderService = require('./app/services/order/orderService');
 require('./index.less');
-
 var app = 'app';
 module.exports = app;
 
@@ -26,4 +25,5 @@ angular
   .component('productNav', productNav)
   .component('productCategory', productCategory)
   .component('orderNav', orderNav)
-  .component('productCart', productCart);
+  .component('productCart', productCart)
+  .service('orderService', orderService);
