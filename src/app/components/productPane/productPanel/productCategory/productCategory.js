@@ -68,9 +68,9 @@ function productCategoryController($scope, $log, $rootScope, stockService) {
         $log.log(products.data);
         angular.forEach(products.data, function (element) {
           vm.products.push(element);
-          vm.busy = false;
         });
         vm.i++;
+        vm.busy = false;
       })
       .catch(function (error) {
         $log.error(error);

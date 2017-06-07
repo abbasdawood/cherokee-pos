@@ -1,5 +1,5 @@
-<div class="row">
-    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" infinite-scroll="$ctrl.pageLoad()" infinite-scroll-distance="0" infinite-scroll-disabled='busy' infinite-scroll-immediate-check=f alse ng-repeat="product in $ctrl.products" ng-click="$ctrl.sendItemId(o)">
+<div class="row" infinite-scroll="$ctrl.pageLoad()" infinite-scroll-distance="0" infinite-scroll-disabled='busy' infinite-scroll-immediate-check=false>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"  ng-repeat="product in $ctrl.products" ng-click="$ctrl.sendItemId(o)">
         <div class="panel panel-default panel-product" >
         	<div class="panel-heading">
         		<h3 class="panel-title">{{product.category}}</h3>
@@ -9,6 +9,7 @@
             </div>
         </div>
     </div>
+    <!-- <div style='clear: both;'></div> -->
 </div>
 <!-- <div ng-repeat="(key, value) in $ctrl.products | groupBy: 'category' " class="component">
 Category : {{key}}
