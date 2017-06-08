@@ -1,0 +1,84 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-4 col-md-offset-4 col-lg-4">
+            <h3 class="text-center">Propl</h3>
+            <p class="text-center text-muted">Your business in your pocket</p>
+            <div class="brand-image animated rotateIn">
+            </div>
+            <form role="form" ng-show="$ctrl.showPanel === 'auth'" name="loginForm" ng-submit="$ctrl.login()">
+                <div class="panel panel-default login">
+                    <div class="panel-body">
+                        <h4 class="text-center">{{$ctrl.user.name ? 'Welcome back, ' + $ctrl.user.name : 'Sign in to continue'}}</h4>
+                        <hr>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <input type="tel" class="form-control material-style" id="phone" ng-model="$ctrl.user.username" maxlength="10" minlength="10" ng-minlength="10" ng-change="$ctrl.checkUsername()">
+                                    <label for="phone">Mobile Phone</label>
+                                    <i class="fa fa-circle-o-notch fa-spin loading" ng-show="loading"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <input type="password" class="form-control material-style" id="password" ng-model="$ctrl.user.password">
+                                    <label for="password">Password</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <button class="btn btn-primary btn-lg btn-block" ng-disabled="!($ctrl.user.username.length === 10 && $ctrl.user.password) || $ctrl.signUpLoading">
+                                    <i class="fa fa-circle-o-notch fa-spin sign-in" ng-show="$ctrl.signUpLoading"></i> Sign In
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <a ng-click="show('reset')" role="button" class="text-center center-block">Forgot Password?</a>
+            </form>
+            <form ng-show="showPanel === 'reset'">
+                <div class="panel panel-default login">
+                    <div class="panel-body">
+                        <h4 class="text-center">Enter your registered mobile number to request a reset link</h4>
+                        <hr>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label for="phone" class="sr-only">Phone</label>
+                                    <input type="tel" class="form-control" id="phone" placeholder="Mobile Phone" ng-model="phone" maxlength="10" minlength="10" ng-minlength="10">
+                                    <i class="fa fa-circle-o-notch fa-spin loading" ng-show="loading"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button class="btn btn-primary btn-block" ng-disabled="!(phone.length === 10)" ng-click="$ctrl.changePassword()">
+                                    <i class="fa fa-circle-o-notch fa-spin sign-in" ng-show="signUpLoading"></i> Request reset link
+                                </button>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-12" ng-show="showPanel === 'reset'">
+                                <button class="btn btn-default btn-block" ng-click="show('auth')">
+                                    <i class="fa fa-circle-o-notch fa-spin sign-in" ng-show="signUpLoading"></i> Back to Sign In
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <br>
+            <br>
+            <div class="alert alert-warning error text-center" ng-show="error">
+                <button type="button" class="close" ng-click="$ctrl.closeError()">&times;</button>
+                {{error.message}}
+            </div>
+        </div>
+    </div>
+</div>
