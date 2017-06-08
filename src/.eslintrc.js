@@ -4,6 +4,7 @@ module.exports = {
   ],
   rules: {
     'angular/no-service-method': 0,
+    'angular/window-service': 0,
     'eol-last': 0,
     'no-unused-vars': 0,
     'no-multiple-empty-lines': 0,
@@ -18,6 +19,7 @@ module.exports = {
   },
   globals: {
     '_': true,
-    'Parse': true
+    'Parse': true,
+    'Dexie':true
   }
 }

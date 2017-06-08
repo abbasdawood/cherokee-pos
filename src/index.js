@@ -10,6 +10,13 @@ var orderNav = require('./app/components/orderPane/orderNav/orderNav');
 var login = require('./app/components/login/login');
 // var Parse = require('parse');
 var Parse = require('parse');
+var routesConfig = require('./configs/routes');
+var dbConfig = require('./configs/dbconfig');
+var orderService = require('./app/services/order/orderService');
+var stockService = require('./app/services/stock/stockService');
+var authService = require('./app/services/auth/authService');
+var commonService = require('./app/services/commonService/commonService');
+var mainFrame = require('./app/components/mainFrame/mainFrame');
 require('angular-filter');
 require('angular-ui-router');
 require('angular-ui-bootstrap');
@@ -17,12 +24,7 @@ require('bootstrap');
 require('jquery');
 require('ng-infinite-scroll');
 require('angular-local-storage');
-var routesConfig = require('./configs/routes');
-var orderService = require('./app/services/order/orderService');
-var stockService = require('./app/services/stock/stockService');
-var authService = require('./app/services/auth/authService');
-var commonService = require('./app/services/commonService/commonService');
-var mainFrame = require('./app/components/mainFrame/mainFrame');
+var Dexie = require('dexie');
 require('./index.less');
 var app = 'app';
 module.exports = app;
@@ -35,6 +37,7 @@ angular
     'infinite-scroll', 'LocalStorageModule'
   ])
   .config(routesConfig)
+  .config(dbConfig)
   .component('app', hello)
   // .component('productNav', productNav)
   .component('productCategory', productCategory)

@@ -1,4 +1,5 @@
 var Parse = require('parse');
+
 function CommonService(localStorageService, $q) {
   return {
     getColors: function () {
@@ -43,6 +44,15 @@ function CommonService(localStorageService, $q) {
       // }
 
       return deferred.promise;
+    },
+    serialize: function (obj) {
+      var str = [];
+      for (var p in obj) {
+        if ('p' in obj && p) {
+          str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
+        }
+      }
+      return str.join('&');
     }
   };
 }
