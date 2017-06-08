@@ -7,7 +7,7 @@ function orderNavController($scope, $log, $rootScope, orderService) {
     vo.id = [];
     vo.state = [];
     vo.total = [];
-    angular.forEach(orderService.getData(), function (element) {
+    angular.forEach(orderService.getOrders(), function (element) {
       if (orderStyle === element.style) {
         vo.id.push(element);
         vo.state.push(element);
@@ -17,6 +17,10 @@ function orderNavController($scope, $log, $rootScope, orderService) {
   this.selectTab = function (style) {
     $log.log(style);
     $rootScope.$broadcast('getorders', style);
+  },
+  this.pageLoad = function (argument) {
+    this.text = 'page load text';
+    
   };
 }
 /* *
