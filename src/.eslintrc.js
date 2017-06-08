@@ -13,7 +13,8 @@ module.exports = {
     'one-var-declaration-per-line': 0,
     'no-else-return': 0,
     'indent':0,
-    'max':0
+    'max':0,
+    'linebreak-style':0
   },
   globals: {
     '_': true,

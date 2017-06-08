@@ -17,7 +17,7 @@ require('bootstrap');
 require('jquery');
 require('ng-infinite-scroll');
 require('angular-local-storage');
-var routesConfig = require('./routes');
+var routesConfig = require('./configs/routes');
 var orderService = require('./app/services/order/orderService');
 var stockService = require('./app/services/stock/stockService');
 var authService = require('./app/services/auth/authService');

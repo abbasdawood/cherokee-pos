@@ -65,6 +65,7 @@ function productCategoryController($scope, $log, $rootScope, stockService) {
         $scope
         .categoryDisplay)
       .then(function (products) {
+        $log.log('this is returned ' + products);
         $log.log(products.data);
         angular.forEach(products.data, function (element) {
           vm.products.push(element);
