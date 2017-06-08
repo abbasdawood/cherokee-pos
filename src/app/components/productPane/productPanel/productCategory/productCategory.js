@@ -42,11 +42,11 @@ function productCategoryController($scope, $log, $rootScope, stockService) {
   //   });
   // });
 
-  this.sendItemId = function (obj) {
-    $log.log('send  ' + obj.id);
+  this.sendItemId = function (product) {
+    $log.log('send  ' + product.id);
     $rootScope.$broadcast('itemObj', {
-      id: obj.id,
-      name: obj.name
+      id: product.id,
+      name: product.name
     });
   };
   // $scope.$on('showCategory', function (event, category) {

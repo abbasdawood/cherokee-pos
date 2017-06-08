@@ -6,6 +6,10 @@ function productCartController($scope, $log) {
   $scope.$on('itemObj', function (event, obj) {
     var id = obj.id;
     $log.log('recieved in cart ' + obj.id);
+
+    if (vm.cart) {
+      
+    }
   });
 
   vm.cart = [1];

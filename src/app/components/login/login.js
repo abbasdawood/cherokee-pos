@@ -1,4 +1,5 @@
-function loginController($scope, $log, localStorageService, AuthService,
+var _ = require('lodash');
+function loginController($state, $scope, $log, localStorageService, AuthService,
   $window, CommonService, $timeout) {
   this.text = 'My brand new component!';
   this.user = {};
@@ -36,14 +37,14 @@ function loginController($scope, $log, localStorageService, AuthService,
       })
       .then(function (allStates) {
         localStorageService.set('states', allStates);
-        var states = _.pluck(allStates, 'state');
+        var states = _.map(allStates, 'state');
         // PermPermissionStore
         //   .defineManyPermissions(states, function (permissionName,
         //     transitionProperties) {
         //     return _.contains(perms.accessArray, permissionName);
         //   });
         // PermRoleStore.defineRole(perms.role, perms.accessArray);
-        // return AuthService.getTaxes();
+        return AuthService.getTaxes();
       })
       .then(function (taxes) {
         localStorageService.set('taxes', angular.toJson(taxes));
@@ -51,33 +52,33 @@ function loginController($scope, $log, localStorageService, AuthService,
       })
       .then(function (colors) {
         localStorageService.set('colors', angular.toJson(colors));
-        return CommonService.getPaymentModes();
+        // return CommonService.getPaymentModes();
       })
       .then(function (paymentModes) {
-        localStorageService.set('modes', angular.toJson(paymentModes.modes));
-        localStorageService.set('wallets', angular.toJson(paymentModes.wallets));
-        localStorageService.set('prepaids', angular.toJson(paymentModes.prepaids));
-        localStorageService.set('cards', angular.toJson(paymentModes.cards));
+        // localStorageService.set('modes', angular.toJson(paymentModes.modes));
+        // localStorageService.set('wallets', angular.toJson(paymentModes.wallets));
+        // localStorageService.set('prepaids', angular.toJson(paymentModes.prepaids));
+        // localStorageService.set('cards', angular.toJson(paymentModes.cards));
         // Check the count of products and then decide to fetch
-        if (perms.role === 'BOSS') {
-          return CommonService.getCount('Product', null, null, null, null);
-        } else {
-          return CommonService.getCount('Product', null, null, 'stores', [
-            user.id
-          ]);
-        }
+        // if (perms.role === 'BOSS') {
+        //   return CommonService.getCount('Product', null, null, null, null);
+        // } else {
+        //   return CommonService.getCount('Product', null, null, 'stores', [
+        //     user.id
+        //   ]);
+        // }
       })
       .then(function (count) {
         $log.log('Count of items on server ' + count);
-        if (perms.role === 'BOSS') {
-          // return stockService.fetchToLocal(count);
-        } else {
-          // return stockService.fetchToLocal(count, user.id);
-        }
+        // if (perms.role === 'BOSS') {
+        //   // return stockService.fetchToLocal(count);
+        // } else {
+        //   // return stockService.fetchToLocal(count, user.id);
+        // }
       })
       .then(function (products) {
         $log.log('all products stored locally');
-        // $state.go('base.dashboard');
+         $state.go('app.mainframe');
       })
       .catch(function (error) {
         $log.error(error);
