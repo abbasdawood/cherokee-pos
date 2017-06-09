@@ -2,22 +2,35 @@ function orderNavController($scope, $log, $rootScope, orderService) {
   this.style = ['all', 'inStore', 'delivery', 'multi'];
   this.text = 'Order Navigation panel';
   var vo = this;
-  $scope.$on('getorders', function (event, style) {
-    var orderStyle = style;
-    vo.id = [];
-    vo.state = [];
-    vo.total = [];
-    angular.forEach(orderService.getData(), function (element) {
-      if (orderStyle === element.style) {
-        vo.id.push(element);
-        vo.state.push(element);
-      }
-    });
-  });
+  this.id = [];
+  this.state = [];
+  this.total = [];
   this.selectTab = function (style) {
     $log.log(style);
     $rootScope.$broadcast('getorders', style);
   };
+
+  vo.i = 0;
+  vo.busy = false;
+  this.pageLoad = function (argument) {
+    // $log.log('page load text');
+    if (vo.busy) {
+      return;
+    }
+    vo.busy = true;
+    orderService.getOrders((vo.i), 8, null, null, null, null, null, null, null)
+    .then(function (orders) {
+      angular.forEach(orders.data, function (element) {
+        vo.orders.push(element);
+       });
+      vo.i++;
+      vo.busy = false;
+    })
+    .catch(function (error) {
+      $log.error(error);
+    });
+  };
+  this.pageLoad();
 }
 /* *
 this.putOrder = function(style) {
@@ -30,7 +43,6 @@ this.putOrder = function(style) {
   });
 };
  * */
-
 module.exports = {
   template: require('./orderNav.html'),
   controller: orderNavController
