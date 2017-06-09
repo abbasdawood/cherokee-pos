@@ -1,48 +1,48 @@
-function orderNavController($scope, $log, $rootScope, orderService) {
+function orderNavController($scope, $log, $rootScope, OrderService) {
   this.style = ['all', 'inStore', 'delivery', 'multi'];
+  this.selectedStyle = null;
   this.text = 'Order Navigation panel';
-  var vo = this;
+  var vm = this;
   this.id = [];
   this.state = [];
   this.total = [];
-  this.selectTab = function (style) {
-    $log.log(style);
-    $rootScope.$broadcast('getorders', style);
-  };
+  this.orders = [];
+  // this.selectTab = function (style) {
+  //   $log.log(style);
+  //   $rootScope.$broadcast('getorders', style);
+  // };
 
-  vo.i = 0;
-  vo.busy = false;
-  this.pageLoad = function (argument) {
-    // $log.log('page load text');
-    if (vo.busy) {
-      return;
-    }
-    vo.busy = true;
-    orderService.getOrders((vo.i), 8, null, null, null, null, null, null, null)
-    .then(function (orders) {
-      angular.forEach(orders.data, function (element) {
-        vo.orders.push(element);
-       });
-      vo.i++;
-      vo.busy = false;
+  vm.i = 0;
+  vm.busy = false;
+  this.pageLoad = function () {
+    $log.log('page load text');
+    // if (vm.busy) {
+    //   return;
+    // }
+    // vm.busy = true;
+    OrderService.getOrders((vm.i), 8, null, null, null, null, null, vm.selectedStyle, null)
+    .then(function (response) {
+      $log.log('display' + response);
+      vm.orders = response.data;
+      // angular.forEach(response.data, function (order) {
+      //   vm.orders.push(order);
+      //  });
+      // vm.i++;
+      // vm.busy = false;
     })
     .catch(function (error) {
       $log.error(error);
     });
   };
-  this.pageLoad();
+  // this.pageLoad();
+
+  this.changeStyle = function (style) {
+    vm.i = 0;
+    vm.orders = [];
+    vm.selectedStyle = style === 'all' ? null : style;
+    this.pageLoad();
+  };
 }
-/* *
-this.putOrder = function(style) {
-  orderService.getData()
-  .then(function(response){
-    $log.log(response.data[0]);
-    vm.orders = response.data;
-  }).catch(function(error){
-    $log.error(error);
-  });
-};
- * */
 module.exports = {
   template: require('./orderNav.html'),
   controller: orderNavController
