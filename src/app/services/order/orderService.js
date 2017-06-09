@@ -2,7 +2,7 @@ function OrderService($log, $http, commonService, moment) {
   return {
     getOrders: function (skip, limit, state, user, storeId, complete, date, style, correctedTime) {
       var orders = [];
-      var url = 'http://192.168.1.2:1337' + ENDPOINT + 'orders/' + vendor;
+      var url = 'http://192.168.1.3:1337' + ENDPOINT + 'orders/' + vendor;
       if (vendor) {
       // var vendor = Parse.User.current().get('keys').vendorKey;
                     var queryParams = {};
