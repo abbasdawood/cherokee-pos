@@ -1,7 +1,6 @@
-var Dexie = require('dexie');
 /** @ngInject */
 function dbConfig($provide) {
-  $provide.constant('Dexie', window.Dexie);
+  $provide.constant('Dexie', Dexie);
   var db = new Dexie('cherokeeDB');
 
   db.version(1).stores({
