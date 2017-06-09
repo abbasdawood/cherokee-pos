@@ -10,10 +10,10 @@ var orderNav = require('./app/components/orderPane/orderNav/orderNav');
 var login = require('./app/components/login/login');
 // var Parse = require('parse');
 var Parse = require('parse');
-var routesConfig = require('./configs/routes');
-var dbConfig = require('./configs/dbconfig');
+var routesConfig = require('./config/routes');
+var dbConfig = require('./config/dbconfig');
 var orderService = require('./app/services/order/orderService');
-var stockService = require('./app/services/stock/stockService');
+var StockService = require('./app/services/stock/stockService');
 var authService = require('./app/services/auth/authService');
 var commonService = require('./app/services/commonService/commonService');
 var mainFrame = require('./app/components/mainFrame/mainFrame');
@@ -30,7 +30,13 @@ var app = 'app';
 module.exports = app;
 
 Parse.initialize('MbAe6hoy43d3uInM0TISC1dBePxocl4eLL4B0Tig', 'bdKP5OkzKFPQt4RKURwhK7blDLTr6xScCxNuSPwY');
-Parse.serverURL = 'http://192.168.1.2:1337/parse';
+Parse.serverURL = 'http://192.168.1.3:1337/parse';
+
+// var db = new Dexie('cherokeeDB');
+//   db.version(1).stores({
+//     products: 'id, *name',
+//     order: '++offlineId, *state, &id, total'
+//   });
 
 angular
   .module(app, ['ui.router', 'angular.filter', 'ui.bootstrap',
@@ -45,7 +51,7 @@ angular
   .component('productCart', productCart)
   .component('login', login)
   .component('mainFrame', mainFrame)
-  .service('stockService', stockService)
+  .service('StockService', StockService)
   .service('AuthService', authService)
   .service('CommonService', commonService)
   // .value('THROTTLE_MILLISECONDS', 250)

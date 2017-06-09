@@ -1,14 +1,15 @@
 var Dexie = require('dexie');
-
-module.exports = dbConfig;
-
 /** @ngInject */
 function dbConfig($provide) {
-  $provide.constant('Dexie', Dexie);
-  var db = new Dexie('posDB');
+  $provide.constant('Dexie', window.Dexie);
+  var db = new Dexie('cherokeeDB');
+
   db.version(1).stores({
     products: 'id, *name',
     order: '++offlineId, *state, &id, total'
   });
   // $log.log('db created ');
+  $provide.constant('cherokeeDB', db);
+
 }
+module.exports = dbConfig;

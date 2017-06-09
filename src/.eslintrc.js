@@ -15,7 +15,9 @@ module.exports = {
     'no-else-return': 0,
     'indent':0,
     'max':0,
-    'linebreak-style':0
+    'linebreak-style':0,
+    'no-lonely-if': 0,
+    'object-curly-spacing': 0
   },
   globals: {
     '_': true,

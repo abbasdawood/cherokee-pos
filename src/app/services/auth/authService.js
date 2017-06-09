@@ -3,7 +3,7 @@ var Parse = require('parse');
 function AuthService($q, $http, localStorageService, $log) {
   var ENDPOINT = '/auth/';
   var ENV = {
-    serverURL: 'http://192.168.1.2:1337'
+    serverURL: 'http://192.168.1.3:1337'
   };
   return {
     signUp: function (user) {
@@ -197,12 +197,13 @@ function AuthService($q, $http, localStorageService, $log) {
       if (pUser) {
         var url = pUser.get('logo') ? pUser.get('logo').url() : null;
         url = url ? url.replace(/^http:\/\//i, '//') : null;
-
+        user.id = pUser.id;
         user.name = {};
         user.name.first = pUser.get('name').first;
         user.name.last = pUser.get('name').last;
         user.phone = pUser.get('phone');
         user.brand = pUser.get('brand');
+        user.role = pUser.get('role');
         user.brandDisplay = pUser.get('brandDisplay');
         user.address = pUser.get('address');
         user.smsCredits = pUser.get('smsCredits');
