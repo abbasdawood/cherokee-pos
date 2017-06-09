@@ -12,6 +12,7 @@ require('angular-ui-router');
 require('angular-ui-bootstrap');
 require('bootstrap');
 require('jquery');
+require('moment');
 var routesConfig = require('./routes');
 var orderService = require('./app/services/order/orderService');
 require('./index.less');
