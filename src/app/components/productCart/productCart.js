@@ -6,10 +6,20 @@ function productCartController($scope, $log) {
   $scope.$on('itemObj', function (event, obj) {
     var id = obj.id;
     $log.log('recieved in cart ' + obj.id);
-    $log.log(vm.cart);
+    var item = _.find(vm.cart, {id: obj.id});
+    if (item) {
+      item.qty++;
+    } else {
+      vm.cart.push({
+        id: obj.id,
+        name: obj.name,
+        qty: 1
+      });
+    }
   });
 
-  $log.log(vm.cart);
+  vm.cart = [1];
+  $log.log(_.head(vm.cart));
 }
 
 module.exports = {

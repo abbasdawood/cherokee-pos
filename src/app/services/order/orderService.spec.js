@@ -1,6 +1,8 @@
 var angular = require('angular');
 require('angular-mocks');
-var {OrderService} = require('./orderService');
+var {
+  OrderService
+} = require('./orderService');
 
 describe('OrderService service', function () {
   beforeEach(function () {
