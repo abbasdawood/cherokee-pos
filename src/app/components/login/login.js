@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var localforage = require('localforage');
 
 function loginController($state, $scope, $log, localStorageService, AuthService,
   $window, CommonService, $timeout, StockService) {
@@ -62,12 +63,15 @@ function loginController($state, $scope, $log, localStorageService, AuthService,
       .then(function (user) {
         // Check the count of products and then decide to fetch
         role = user.role;
+        var count = 181;
         if (user.role === 'BOSS') {
-          return CommonService.getCount('Product', null, null, null, null);
+          // return CommonService.getCount('Product', null, null, null, null);
+          return count;
         } else {
-          return CommonService.getCount('Product', null, null, 'stores', [
-            user.id
-          ]);
+          // return CommonService.getCount('Product', null, null, 'stores', [
+          //   user.id
+          // ]);
+          return count;
         }
 
       })

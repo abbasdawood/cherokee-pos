@@ -17,7 +17,8 @@ module.exports = {
     'max':0,
     'linebreak-style':0,
     'no-lonely-if': 0,
-    'object-curly-spacing': 0
+    'object-curly-spacing': 0,
+    'angular/module-getter': 0
   },
   globals: {
     '_': true,

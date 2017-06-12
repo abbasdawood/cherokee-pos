@@ -1,4 +1,5 @@
-function productCategoryController($scope, $log, $rootScope, stockService) {
+function productCategoryController($scope, $log, $rootScope, StockService) {
+  var localforage = require('localforage');
   var vm = this;
   this.products = [];
   this.names = [];
@@ -41,7 +42,6 @@ function productCategoryController($scope, $log, $rootScope, stockService) {
   //     }
   //   });
   // });
-
   this.sendItemId = function (product) {
     $log.log('send  ' + product.id);
     $rootScope.$broadcast('itemObj', {
@@ -49,9 +49,10 @@ function productCategoryController($scope, $log, $rootScope, stockService) {
       name: product.name
     });
   };
-  // $scope.$on('showCategory', function (event, category) {
-  //   var categoryDisplay = category;
-  //   $log.log('Recd ct: ' + category);
+  $scope.$on('showCategory', function (event, category) {
+    var categoryDisplay = category;
+    $log.log('Recd ct: ' + category);
+  });
   this.i = 0;
   this.busy = false;
   this.pageLoad = function () {
@@ -60,16 +61,18 @@ function productCategoryController($scope, $log, $rootScope, stockService) {
     }
     vm.busy = true;
     // vm.i++;
-    stockService
-      .getProducts((vm.i), 50, null, null, null, null, null, null,
-        $scope
-        .categoryDisplay)
+    StockService
+      .getProducts((vm.i), 50, null, null, null, null, null, null, $scope.categoryDisplay)
       .then(function (products) {
         $log.log('this is returned ' + products);
         $log.log(products.data);
-        angular.forEach(products.data, function (element) {
+        angular.forEach(products, function (element) {
           vm.products.push(element);
+          $log.log(element);
+          localforage.setItem(element.id, element);
+          $log.log('item set');
         });
+
         vm.i++;
         vm.busy = false;
       })
@@ -78,6 +81,7 @@ function productCategoryController($scope, $log, $rootScope, stockService) {
       });
   };
   this.pageLoad();
+  StockService.fetchToLocal(null, null);
 }
 module.exports = {
   template: require('./productCategory.html'),

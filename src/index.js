@@ -25,7 +25,7 @@ require('bootstrap');
 require('jquery');
 require('ng-infinite-scroll');
 require('angular-local-storage');
-var Dexie = require('dexie');
+// var Dexie = require('dexie');
 require('./index.less');
 var app = 'app';
 module.exports = app;
@@ -33,19 +33,27 @@ module.exports = app;
 Parse.initialize('MbAe6hoy43d3uInM0TISC1dBePxocl4eLL4B0Tig', 'bdKP5OkzKFPQt4RKURwhK7blDLTr6xScCxNuSPwY');
 Parse.serverURL = 'http://192.168.1.3:1337/parse';
 
-var db = new Dexie('cherokeeDB');
-  db.version(1).stores({
-    products: 'id, *name',
-    order: '++offlineId, *state, &id, total'
-  });
+// var db = new Dexie('cherokeeDB');
+//   db.version(1).stores({
+//     products: 'id, *name',
+//     order: '++offlineId, *state, &id, total'
+//   });
+// localforage.config({
+//   driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
+//   name: 'cherokeeDB',
+//   version: 1.0,
+//   size: 9980736, // Size of database, in bytes. WebSQL-only for now.
+//   storeName: 'keyvaluepairs', // Should be alphanumeric, with underscores.
+//   description: 'some description'
+// });
 
 angular
   .module(app, ['ui.router', 'angular.filter', 'ui.bootstrap',
     'infinite-scroll', 'LocalStorageModule'
   ])
-  .constant('cherokeeDB', db)
+  .constant('localforage', localforage)
   .config(routesConfig)
-  // .config(dbConfig)
+  .config(dbConfig)
   .component('app', hello)
   // .component('productNav', productNav)
   .component('productCategory', productCategory)

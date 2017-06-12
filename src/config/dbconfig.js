@@ -1,14 +1,21 @@
+// var localforage = require('localforage');
 /** @ngInject */
-function dbConfig($provide) {
-  $provide.constant('Dexie', Dexie);
-  var db = new Dexie('cherokeeDB');
-
-  db.version(1).stores({
-    products: 'id, *name',
-    order: '++offlineId, *state, &id, total'
+function dbConfig(localforage) {
+  localforage.config({
+    driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
+    name: 'cherokeeDB',
+    version: 1.0,
+    size: 9980736, // Size of database, in bytes. WebSQL-only for now.
+    storeName: 'products', // Should be alphanumeric, with underscores.
+    description: 'some description'
   });
-  // $log.log('db created ');
-  $provide.constant('cherokeeDB', db);
+  // localforage.setItem('key', 'value').then(function () {
+  //   return localforage.getItem('key');
+  // }).then(function (value) {
+  //   $log.log(value);
+  // }).catch(function (err) {
+  //   // we got an error
+  // });
 
 }
 module.exports = dbConfig;
