@@ -3,7 +3,7 @@ var Parse = require('parse');
 function AuthService($q, $http, localStorageService, $log) {
   var ENDPOINT = '/auth/';
   var ENV = {
-    serverURL: 'http://192.168.1.2:1337'
+    serverURL: 'http://192.168.1.3:1337'
   };
   return {
     signUp: function (user) {

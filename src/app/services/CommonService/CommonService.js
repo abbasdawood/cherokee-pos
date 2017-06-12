@@ -1,6 +1,6 @@
 var Parse = require('parse');
 
-function CommonService(localStorageService, $q) {
+function CommonService(localStorageService, $q, $log) {
   return {
     getColors: function () {
       var deferred = $q.defer();
@@ -52,6 +52,7 @@ function CommonService(localStorageService, $q) {
           str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
         }
       }
+      $log.log(str.join('&'));
       return str.join('&');
     }
   };
@@ -60,5 +61,4 @@ function CommonService(localStorageService, $q) {
 CommonService.prototype.getData = function () {
   return 1 + 2;
 };
-
 module.exports = CommonService;
