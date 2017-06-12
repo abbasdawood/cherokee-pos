@@ -10,6 +10,7 @@ var orderNav = require('./app/components/orderPane/orderNav/orderNav');
 var login = require('./app/components/login/login');
 // var Parse = require('parse');
 var Parse = require('parse');
+var localforage = require('localforage');
 var routesConfig = require('./config/routes');
 var dbConfig = require('./config/dbconfig');
 var orderService = require('./app/services/order/orderService');
