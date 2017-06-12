@@ -22,6 +22,7 @@ module.exports = {
   globals: {
     '_': true,
     'Parse': true,
-    'Dexie':true
+    'Dexie': true,
+    'localforage': true
   }
 }
