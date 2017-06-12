@@ -1,11 +1,12 @@
 var moment = require('moment');
 var vendor = '1c2a216405e85c2d7d5ca244e5258ae2';
 
-function OrderService($log, $http, CommonService) {
+function OrderService($q, $log, $http, CommonService) {
     return {
         getOrders: function (skip, limit, state, user, storeId, complete, date, style, correctedTime) {
+            // var deferred = $q.defer();
             $log.log(skip + ' limit ' + limit + ' style ' + style);
-            var orders = [];
+            // var orders = [];
             var url = 'http://192.168.1.3:1337' + ENDPOINT + 'orders/' + vendor + '?limit=' + limit;
             if (style) {
                 url = url + '&style=' + style;
@@ -34,11 +35,12 @@ function OrderService($log, $http, CommonService) {
             }
             if (style) {
                 queryParams.style = style;
+                $log.log('latest style is this' + style);
             }
             if (user) {
                 queryParams.user = user;
             }
-            if (storeId) {
+                if (storeId) {
                 queryParams.store = storeId;
             }
             queryParams.close = '01';

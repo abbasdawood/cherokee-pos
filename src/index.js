@@ -17,6 +17,7 @@ var StockService = require('./app/services/Stock/StockService');
 var AuthService = require('./app/services/Auth/AuthService');
 var CommonService = require('./app/services/CommonService/CommonService');
 var mainFrame = require('./app/components/mainFrame/mainFrame');
+var orderCard = require('./app/components/orderPane/orderPanel/orderCard/orderCard');
 require('angular-filter');
 require('angular-ui-router');
 require('angular-ui-bootstrap');
@@ -46,6 +47,7 @@ angular
   .component('productCart', productCart)
   .component('login', login)
   .component('mainFrame', mainFrame)
+  .controller('orderCardController', orderCard)
   .service('StockService', StockService)
   .service('AuthService', AuthService)
   .service('CommonService', CommonService)

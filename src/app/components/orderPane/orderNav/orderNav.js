@@ -1,8 +1,8 @@
-function orderNavController($scope, $log, $rootScope, OrderService) {
+function orderNavController($scope, $log, $rootScope, OrderService, $uibModal) {
+  var vm = this;
   this.style = ['all', 'inStore', 'delivery', 'multi'];
   this.selectedStyle = null;
   this.text = 'Order Navigation panel';
-  var vm = this;
   this.id = [];
   this.state = [];
   this.total = [];
@@ -20,14 +20,20 @@ function orderNavController($scope, $log, $rootScope, OrderService) {
     //   return;
     // }
     // vm.busy = true;
+    vm.orders = [
+      vm.orderId = '1234543',
+      vm.style = 'delivery'
+      ];
     OrderService.getOrders((vm.i), 8, null, null, null, null, null, vm.selectedStyle, null)
     .then(function (response) {
       $log.log('display' + response);
-      vm.orders = response.data;
+      // vm.orders = response.data;
+      // vm.id = '2121';
+      // vm.style = 'delivery';
       // angular.forEach(response.data, function (order) {
       //   vm.orders.push(order);
       //  });
-      // vm.i++;
+      vm.i++;
       // vm.busy = false;
     })
     .catch(function (error) {
@@ -41,6 +47,26 @@ function orderNavController($scope, $log, $rootScope, OrderService) {
     vm.orders = [];
     vm.selectedStyle = style === 'all' ? null : style;
     this.pageLoad();
+  };
+
+  this.selectOrder = function (order) {
+    $log.log(order);
+    $uibModal.open({
+      size: 'lg',
+      // appendTo: $document.find('aside').eq(0),
+      templateUrl: 'app/components/orderPane/orderPanel/orderCard/orderCard.html',
+      controller: 'orderCardController',
+      controllerAs: 'orderCard',
+      resolve: {
+        orderId: function () {
+          return '123';
+        }
+      }
+    }).result.then(function (result) {
+      // What happens when this modal is closed successfully
+    }).catch(function (error) {
+      // What happens if this is dismissed
+    });
   };
 }
 module.exports = {

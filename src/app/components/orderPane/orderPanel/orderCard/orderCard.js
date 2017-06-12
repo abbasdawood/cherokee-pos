@@ -1,9 +1,9 @@
-function orderCardController() {
-  this.text = 'My brand new component!';
+function orderCardController($scope, $log, $rootScope, OrderService, orderId) {
+  this.text = 'order card!';
+  this.id = orderId;
+  $log.log(orderId);
+  $log.log('ordermodal');
 }
 
-module.exports = {
-  template: require('./orderCard.html'),
-  controller: orderCardController
-};
+module.exports = orderCardController;
 
