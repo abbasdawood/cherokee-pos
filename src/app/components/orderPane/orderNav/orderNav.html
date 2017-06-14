@@ -1,13 +1,11 @@
 <div class="component">
   <h4>{{$ctrl.text}}</h4>
-   <uib-tabset active="active">
-    <uib-tab index="$index + 1" ng-repeat="tab in $ctrl.style" select="$ctrl.changeStyle(tab)">
+  <uib-tabset active="active">
+    <uib-tab index="$index + 1" ng-repeat="tab in $ctrl.style track by tab" select="$ctrl.changeStyle(tab)">
     	<uib-tab-heading> {{tab}} </uib-tab-heading>
-	</uib-tab>
+  	</uib-tab>
   </uib-tabset>
-  <div ng-repeat="order in $ctrl.orders"> 
-  <pre ng-click="$ctrl.selectOrder(order)">{{order.id}} <br> {{order.style}}</pre> 
-  <!-- <! .open('sm', '.order-nav)!> -->
-  <br>
+  <div ng-repeat="order in $ctrl.orders track by $index"> 
+    <pre ng-click="$ctrl.selectOrder(order)">{{order.id}} <br> {{order.style}}</pre> 
   </div>
 </div>

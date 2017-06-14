@@ -16,31 +16,26 @@ function orderNavController($scope, $log, $rootScope, OrderService, $uibModal) {
   vm.busy = false;
   this.pageLoad = function () {
     $log.log('page load text');
-    // if (vm.busy) {
-    //   return;
-    // }
-    // vm.busy = true;
-    vm.orders = [
-      vm.orderId = '1234543',
-      vm.style = 'delivery'
-      ];
+    if (vm.busy) {
+      return;
+    }
+    vm.busy = true;
+
     OrderService.getOrders((vm.i), 8, null, null, null, null, null, vm.selectedStyle, null)
     .then(function (response) {
       $log.log('display' + response);
-      // vm.orders = response.data;
-      // vm.id = '2121';
-      // vm.style = 'delivery';
-      // angular.forEach(response.data, function (order) {
-      //   vm.orders.push(order);
-      //  });
+        vm.orders = response.data;
+        angular.forEach(response.data, function (order) {
+          vm.orders.push(order);
+        });
       vm.i++;
-      // vm.busy = false;
+      vm.busy = false;
     })
     .catch(function (error) {
       $log.error(error);
     });
   };
-  // this.pageLoad();
+  this.pageLoad();
 
   this.changeStyle = function (style) {
     vm.i = 0;
@@ -53,13 +48,12 @@ function orderNavController($scope, $log, $rootScope, OrderService, $uibModal) {
     $log.log(order);
     $uibModal.open({
       size: 'lg',
-      // appendTo: $document.find('aside').eq(0),
+      keyboard: false,
       templateUrl: 'app/components/orderPane/orderPanel/orderCard/orderCard.html',
       controller: 'orderCardController',
-      controllerAs: 'orderCard',
       resolve: {
-        orderId: function () {
-          return '123';
+        order: function () {
+          return order;
         }
       }
     }).result.then(function (result) {

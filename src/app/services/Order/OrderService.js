@@ -1,12 +1,10 @@
 var moment = require('moment');
 var vendor = '1c2a216405e85c2d7d5ca244e5258ae2';
 
-function OrderService($q, $log, $http, CommonService) {
+function OrderService($log, $http, CommonService) {
     return {
         getOrders: function (skip, limit, state, user, storeId, complete, date, style, correctedTime) {
-            // var deferred = $q.defer();
             $log.log(skip + ' limit ' + limit + ' style ' + style);
-            // var orders = [];
             var url = 'http://192.168.1.3:1337' + ENDPOINT + 'orders/' + vendor + '?limit=' + limit;
             if (style) {
                 url = url + '&style=' + style;
@@ -40,7 +38,7 @@ function OrderService($q, $log, $http, CommonService) {
             if (user) {
                 queryParams.user = user;
             }
-                if (storeId) {
+            if (storeId) {
                 queryParams.store = storeId;
             }
             queryParams.close = '01';
@@ -50,13 +48,22 @@ function OrderService($q, $log, $http, CommonService) {
                 url = url + '?' + queryData;
                 $log.log(url);
             }
-            // } else {
-            //     $log.log('No user signed in');
-            // }
-            // var config = {
-            //     cache: false
-            // };
+            else {
+                $log.log('No user signed in');
+            }
+            var config = {
+                cache: false
+            };
             return $http.get(url);
+        },
+        getOrderItems: function (id, store) {
+            return $http.get('http://192.168.1.3:1337' + ENDPOINT + 'items/' + id);
+        },
+        addOrderItems: function (items, store) {
+            return $http.post('http://192.168.1.3:1337' + ENDPOINT + 'add', {items: items, store: store});
+        },
+        removeOrderItem: function (id, store) {
+            return $http.delete('http://192.168.1.3:1337' + ENDPOINT + 'item/' + id);
         }
     };
 }

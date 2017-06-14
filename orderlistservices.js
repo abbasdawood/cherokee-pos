@@ -434,3 +434,61 @@ linkOrder: function(id, itemId) {
 
                 return deferred.promise;
             },
+
+        removeOrderItem: function(id, store, offline) {
+        var res;
+        var url = 'http://192.168.1.3:1337' + ENDPOINT + 'item/' + id;
+        if (store) {
+            url = url + '?store=' + store;
+        }
+
+        if (Offline.state === 'up') {
+            $http
+                .delete(url)
+                .then(function(response) {
+                    res = response;
+                    return offlineOrderService.removeOrderItem(id, offline);
+                })
+                .then(function() {
+                    deferred.resolve(res.data.id);
+                })
+                .catch(function(error) {
+                    deferred.reject(error.data);
+                });
+        } else {
+            // Remove the item from localstorage with the help of the id
+            offlineOrderService.removeOrderItem(id, offline).then(function() {
+                deferred.resolve('item');
+            }).catch(function() {
+                deferred.reject({ message: 'Item was not deleted' });
+            });
+        }
+        return deferred.promise;
+    },
+
+    updateOrderItem: function(id, quantity, discount, discountCode, remarks, store, orderId) {
+        var deferred = $q.defer();
+        var res;
+
+        var body = {
+            quantity: parseInt(quantity),
+            discount: parseFloat(discount),
+            discountCode: discountCode,
+            remarks: remarks,
+            store: store,
+            orderId: orderId
+        };
+
+        if (Offline.state === 'up') {
+            $http
+                .put(ENV.serverURL + ENDPOINT + 'item/' + id, body)
+                .then(function(response) {
+                    res = response;
+                    deferred.resolve(res.data.id);
+                })
+                .catch(function(error) {
+                    deferred.reject(error.data);
+                });
+        }
+        return deferred.promise;
+    },
