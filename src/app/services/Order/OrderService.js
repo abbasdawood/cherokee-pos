@@ -1,11 +1,12 @@
 var moment = require('moment');
 var vendor = '1c2a216405e85c2d7d5ca244e5258ae2';
+var URL = 'http://192.168.1.5:1337';
 
 function OrderService($log, $http, CommonService) {
     return {
         getOrders: function (skip, limit, state, user, storeId, complete, date, style, correctedTime) {
             $log.log(skip + ' limit ' + limit + ' style ' + style);
-            var url = 'http://192.168.1.3:1337' + ENDPOINT + 'orders/' + vendor + '?limit=' + limit;
+            var url = URL + ENDPOINT + 'orders/' + vendor + '?limit=' + limit;
             if (style) {
                 url = url + '&style=' + style;
             }
@@ -47,8 +48,7 @@ function OrderService($log, $http, CommonService) {
             if (queryData) {
                 url = url + '?' + queryData;
                 $log.log(url);
-            }
-            else {
+            } else {
                 $log.log('No user signed in');
             }
             var config = {
@@ -57,13 +57,40 @@ function OrderService($log, $http, CommonService) {
             return $http.get(url);
         },
         getOrderItems: function (id, store) {
-            return $http.get('http://192.168.1.3:1337' + ENDPOINT + 'items/' + id);
+            return $http.get(URL + ENDPOINT + 'items/' + id);
         },
+        // removeOrderItem: function (id, store) {
+        //     return $http.delete(URL + ENDPOINT + 'item/' + id);
+        // }
+        updateOrderItems: function (orderId, itemId, quantity, discount, discountCode, remarks) {
+            var body = {
+                orderId: orderId,
+                itemId: itemId,
+                quantity: quantity,
+                discount: parseFloat(discount),
+                discountCode: discountCode,
+                remarks: remarks
+            };
+            return $http.post(URL + ENDPOINT + 'item/' + itemId, body);
+        },
+
+
         addOrderItems: function (items, store) {
-            return $http.post('http://192.168.1.3:1337' + ENDPOINT + 'add', {items: items, store: store});
+            return $http.post(URL + ENDPOINT + 'add', {items: items, store: store});
         },
-        removeOrderItem: function (id, store) {
-            return $http.delete('http://192.168.1.3:1337' + ENDPOINT + 'item/' + id);
+        linkOrder: function (orderId, itemId) {
+            return $http.post(URL + ENDPOINT + 'linkOrder', {orderId: orderId, orderItemId: itemId});
+        },
+        createOrder: function () {
+            var order = [];
+            var body = {
+                mode: URL.mode,
+                style: URL.style,
+                type: URL.type,
+                owner: URL.owner
+            };
+            $log.log('creating online order');
+            return $http.post(URL + ENDPOINT + 'order/' + vendor, body);
         }
     };
 }

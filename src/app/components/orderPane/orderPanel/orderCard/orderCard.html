@@ -2,9 +2,14 @@
   <h2>{{text}}<h2>
   <pre>{{style}}</pre>
   <pre>{{id}}</pre>
-  <div ng-repeat="item in list">
-    {{item.name}}     {{item.quantity}} 
-    <button type="button" class="remove" ng-click="removeItem(item.id)"></button>
-  </div>
+  <pre>
+  	<div ng-repeat="item in list">
+    	{{item.name}}
+    	<button type="button" ng-click="modify($index, 'remove')"> - </button>
+    	{{item.quantity}} 
+    	<button type="button" ng-click="modify($index, 'add')"> + </button> &nbsp &nbsp
+    	<button type="button" ng-click="updateOrderItems($index)"> save </button>
+  	</div>
+  </pre>
 </div>
 <!-- select ="orderCardController.addItems(list.itemId, null)" -->

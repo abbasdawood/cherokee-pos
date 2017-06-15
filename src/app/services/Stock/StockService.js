@@ -9,7 +9,7 @@ function StockService($http, $log) {
       contains, store, category) {
       $log.log('in here is get prodcuts func');
 
-      var url = 'http://192.168.1.3:1337' + ENDPOINT + 'products/' +
+      var url = 'http://192.168.1.5:1337' + ENDPOINT + 'products/' +
         vendor + '?skip=' + skip + '&limit=' + limit;
       var config = {
         cache: false
