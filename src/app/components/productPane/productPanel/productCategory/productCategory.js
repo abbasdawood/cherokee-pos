@@ -9,6 +9,7 @@ function productCategoryController($scope, $log, StockService) {
 
   this.getProducts = function () {
     var some = [];
+    $log.log('function getProducts is called ');
     localforage
       .iterate(function (value, key, iterationNumber) {
         // $log.log(value.name);
@@ -30,8 +31,8 @@ function productCategoryController($scope, $log, StockService) {
   this.getProducts();
 
   this.cartProducts = function (cartProduct) {
-    var item = _.find(vm.cart, {id: cartProduct.id});
-     if (item) {
+    var item = _.find(vm.cart, { id: cartProduct.id });
+    if (item) {
       item.qty++;
     } else {
       vm.cart.push({
@@ -43,6 +44,24 @@ function productCategoryController($scope, $log, StockService) {
       $log.log('not found in cart so adding it');
     }
   };
+  this.quantityChange = function (index, change) {
+    // $log.log(vm.cart[index].quantity);
+    if (vm.cart[index].qty >= 1) {
+      vm.cart[index].qty = vm.cart[index].qty + parseInt(change);
+      // vm.cart[index].quantity++;
+      // body...
+    }
+  };
+  // this.quantityChange = function (index, change) {
+  //   $log.log(index + '  ' + change)
+  //   vm.cart[index].quantity += change;
+  //   // body...
+  // };
+  // $('#cart').affix({
+  //   offset: {
+  //     top: 16
+  //   }
+  // });
 }
 
 module.exports = {

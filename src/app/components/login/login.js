@@ -49,6 +49,7 @@ function loginController($state, $scope, $log, localStorageService, AuthService,
         return CommonService.getColors();
       })
       .then(function (colors) {
+        $log.log(localStorageService.get('colors'));
         localStorageService.set('colors', angular.toJson(colors));
         return CommonService.getPaymentModes();
       })
@@ -86,6 +87,11 @@ function loginController($state, $scope, $log, localStorageService, AuthService,
       .then(function (products) {
         $log.log('all products stored locally');
         $state.go('app.mainframe');
+        return CommonService.getColors();
+      })
+      .then(function (colors) {
+        localStorageService.set('colors', angular.toJson(colors));
+        // body...
       })
       .catch(function (error) {
         $log.error(error);
