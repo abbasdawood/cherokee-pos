@@ -146,6 +146,7 @@ function CommonService(localStorageService, $q, $log) {
           str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
         }
       }
+      $log.log(str.join('&'));
       return str.join('&');
     }
   };
@@ -154,5 +155,4 @@ function CommonService(localStorageService, $q, $log) {
 CommonService.prototype.getData = function () {
   return 1 + 2;
 };
-
 module.exports = CommonService;

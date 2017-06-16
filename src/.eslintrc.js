@@ -7,7 +7,7 @@ module.exports = {
     'angular/window-service': 0,
     'eol-last': 0,
     'no-unused-vars': 0,
-    'brace-style': 0
+    'brace-style': 0,
     'no-multiple-empty-lines': 0,
     'padded-blocks': 0,
     'no-negated-condition': 0,
@@ -16,7 +16,8 @@ module.exports = {
     'no-else-return': 0,
     'indent':0,
     'max':0,
-    'linebreak-style':0,
+    'radix':0,
+     'linebreak-style':0,
     'no-lonely-if': 0,
     'object-curly-spacing': 0,
     'angular/module-getter': 0
@@ -24,7 +25,6 @@ module.exports = {
   globals: {
     '_': true,
     'Parse': true,
-    'Dexie': true,
     'localforage': true
   }
 }

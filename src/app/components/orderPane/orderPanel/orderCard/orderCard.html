@@ -1,3 +1,14 @@
 <div class="component">
-  <h2>{{$ctrl.text}}</h2>
+    <h2>{{text}}<h2>
+    <pre>{{style}} &nbsp &nbsp {{id}}</pre>
+    <button type="button" ng-click="addItems()"> + item </button>  &nbsp
+    <pre>{{list | json}}</pre>
+    <div ng-repeat="item in list">
+      {{item.name}}
+      <button type="button" ng-click="modify($index, 'remove')"> - </button>
+      {{item.quantity}} 
+      <button type="button" ng-click="modify($index, 'add')"> + </button> &nbsp &nbsp
+      <button type="button" ng-click="updateOrderItems($index)"> save </button>
+    </div>
 </div>
+<!-- select ="orderCardController.addItems(list.itemId, null)" -->

@@ -1,49 +1,72 @@
-function orderNavController($scope, $log, $rootScope, orderService) {
-  this.style = ['all', 'inStore', 'delivery', 'multi'];
-  this.text = 'Order Navigation panel';
-  var vo = this;
-  this.id = [];
-  this.state = [];
-  this.total = [];
-  this.selectTab = function (style) {
-    $log.log(style);
-    $rootScope.$broadcast('getorders', style);
-  };
+function orderNavController($scope, $log, $rootScope, OrderService, $uibModal) {
+    var vm = this;
+    this.style = ['all', 'inStore', 'delivery', 'multi'];
+    this.selectedStyle = null;
+    this.text = 'Order Navigation panel';
+    this.id = [];
+    this.state = [];
+    this.total = [];
+    this.orders = [];
+    // this.selectTab = function (style) {
+    //   $log.log(style);
+    //   $rootScope.$broadcast('getorders', style);
+    // };
 
-  vo.i = 0;
-  vo.busy = false;
-  this.pageLoad = function (argument) {
-    // $log.log('page load text');
-    if (vo.busy) {
-      return;
-    }
-    vo.busy = true;
-    orderService.getOrders((vo.i), 8, null, null, null, null, null, null, null)
-    .then(function (orders) {
-      angular.forEach(orders.data, function (element) {
-        vo.orders.push(element);
-       });
-      vo.i++;
-      vo.busy = false;
-    })
-    .catch(function (error) {
-      $log.error(error);
-    });
-  };
-  this.pageLoad();
+    vm.i = 0;
+    vm.busy = false;
+    this.pageLoad = function () {
+        $log.log('page load text');
+        if (vm.busy) {
+            return;
+        }
+        vm.busy = true;
+        OrderService
+            .getOrders((vm.i), 8, null, null, null, null, null, vm.selectedStyle, null)
+            .then(function (response) {
+                $log.log('display' + response);
+                // vm.orders = response.data;
+                angular.forEach(response.data, function (order) {
+                    vm.orders.push(order);
+                });
+                vm.i++;
+                vm.busy = false;
+            })
+            .catch(function (error) {
+                $log.error(error);
+            });
+    };
+    this.pageLoad();
+    $log.log('page load text2');
+
+    this.changeStyle = function (style) {
+        vm.i = 0;
+        vm.orders = [];
+        vm.selectedStyle = style === 'all' ? null : style;
+        this.pageLoad();
+        $log.log('page changeStyle text');
+
+    };
+
+    this.selectOrder = function (order) {
+        $log.log(order);
+        $uibModal.open({
+            size: 'lg',
+            keyboard: false,
+            templateUrl: 'app/components/orderPane/orderPanel/orderCard/orderCard.html',
+            controller: 'orderCardController',
+            resolve: {
+                order: function () {
+                    return order;
+                }
+            }
+        }).result.then(function (result) {
+            // What happens when this modal is closed successfully
+        }).catch(function (error) {
+            // What happens if this is dismissed
+        });
+    };
 }
-/* *
-this.putOrder = function(style) {
-  orderService.getData()
-  .then(function(response){
-    $log.log(response.data[0]);
-    vm.orders = response.data;
-  }).catch(function(error){
-    $log.error(error);
-  });
-};
- * */
 module.exports = {
-  template: require('./orderNav.html'),
-  controller: orderNavController
+    template: require('./orderNav.html'),
+    controller: orderNavController
 };
