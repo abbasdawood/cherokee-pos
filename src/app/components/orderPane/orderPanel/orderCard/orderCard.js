@@ -14,6 +14,7 @@ function orderCardController($scope, $log, $rootScope, OrderService, order, $uib
             .getOrderItems(order.id, null)
             .then(function (response) {
                 angular.forEach(response.data, function (item) {
+                    $log.log(item);
                     $scope.list.push(item);
                 });
             })
@@ -22,18 +23,18 @@ function orderCardController($scope, $log, $rootScope, OrderService, order, $uib
             });
     };
     $scope.getItems();
+
     $scope.updateOrderItems = function (index) {
         OrderService
             .updateOrderItems(
-                $scope.list[index].orderId,
-                $scope.list[index].itemId,
+                $scope.list[index].id,
                 $scope.list[index].quantity,
                 null,
                 null,
                 null)
             .then(function (response) {
                 $log.log(response.data);
-                // $scope.getItems();
+                $scope.getItems();
             })
             .catch(function (error) {
                 $log.log('update order error' + error);

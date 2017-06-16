@@ -62,16 +62,15 @@ function OrderService($log, $http, CommonService) {
         // removeOrderItem: function (id, store) {
         //     return $http.delete(URL + ENDPOINT + 'item/' + id);
         // }
-        updateOrderItems: function (orderId, itemId, quantity, discount, discountCode, remarks) {
+        updateOrderItems: function (id, quantity, discount, discountCode, remarks) {
             var body = {
-                orderId: orderId,
-                itemId: itemId,
-                quantity: quantity,
+                id: id,
+                quantity: parseFloat(quantity),
                 discount: parseFloat(discount),
                 discountCode: discountCode,
                 remarks: remarks
             };
-            return $http.post(URL + ENDPOINT + 'item/' + itemId, body);
+            return $http.put(URL + ENDPOINT + 'item/' + id, body);
         },
 
 
