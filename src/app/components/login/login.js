@@ -1,6 +1,8 @@
 var _ = require('lodash');
+var localforage = require('localforage');
+
 function loginController($state, $scope, $log, localStorageService, AuthService,
-  $window, CommonService, $timeout) {
+  $window, CommonService, $timeout, StockService) {
   this.text = 'My brand new component!';
   this.user = {};
   var vm = this;
@@ -24,15 +26,11 @@ function loginController($state, $scope, $log, localStorageService, AuthService,
   this.login = function () {
     vm.signUpLoading = true;
     var perms;
-    var user;
+    var user, role;
     AuthService.logIn(vm.user)
       .then(function (u) {
         user = u;
         $log.log(user);
-        // return AuthService.getPermissions();
-      })
-      .then(function (permissions) {
-        perms = permissions;
         return CommonService.getStates();
       })
       .then(function (allStates) {
@@ -52,33 +50,42 @@ function loginController($state, $scope, $log, localStorageService, AuthService,
       })
       .then(function (colors) {
         localStorageService.set('colors', angular.toJson(colors));
-        // return CommonService.getPaymentModes();
+        return CommonService.getPaymentModes();
       })
       .then(function (paymentModes) {
-        // localStorageService.set('modes', angular.toJson(paymentModes.modes));
-        // localStorageService.set('wallets', angular.toJson(paymentModes.wallets));
-        // localStorageService.set('prepaids', angular.toJson(paymentModes.prepaids));
-        // localStorageService.set('cards', angular.toJson(paymentModes.cards));
+        localStorageService.set('modes', angular.toJson(paymentModes.modes));
+        localStorageService.set('wallets', angular.toJson(paymentModes.wallets));
+        localStorageService.set('prepaids', angular.toJson(paymentModes.prepaids));
+        localStorageService.set('cards', angular.toJson(paymentModes.cards));
+        return AuthService.retrieveUser();
+
+      })
+      .then(function (user) {
         // Check the count of products and then decide to fetch
-        // if (perms.role === 'BOSS') {
-        //   return CommonService.getCount('Product', null, null, null, null);
-        // } else {
-        //   return CommonService.getCount('Product', null, null, 'stores', [
-        //     user.id
-        //   ]);
-        // }
+        role = user.role;
+        var count = 181;
+        if (user.role === 'BOSS') {
+          // return CommonService.getCount('Product', null, null, null, null);
+          return count;
+        } else {
+          // return CommonService.getCount('Product', null, null, 'stores', [
+          //   user.id
+          // ]);
+          return count;
+        }
+
       })
       .then(function (count) {
         $log.log('Count of items on server ' + count);
-        // if (perms.role === 'BOSS') {
-        //   // return stockService.fetchToLocal(count);
-        // } else {
-        //   // return stockService.fetchToLocal(count, user.id);
-        // }
+        if (role === 'BOSS') {
+          return StockService.fetchToLocal(count);
+        } else {
+          return StockService.fetchToLocal(count, user.id);
+        }
       })
       .then(function (products) {
         $log.log('all products stored locally');
-         $state.go('app.mainframe');
+        $state.go('app.mainframe');
       })
       .catch(function (error) {
         $log.error(error);
