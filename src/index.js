@@ -10,6 +10,7 @@ var orderNav = require('./app/components/orderPane/orderNav/orderNav');
 var sideNav = require('./app/components/sideNav/sideNav');
 var login = require('./app/components/login/login');
 var Parse = require('parse');
+var localforage = require('localforage');
 var routesConfig = require('./configs/routes');
 var dbConfig = require('./configs/dbconfig');
 var OrderService = require('./app/services/Order/OrderService');
@@ -26,7 +27,7 @@ require('jquery');
 require('moment');
 require('ng-infinite-scroll');
 require('angular-local-storage');
-var Dexie = require('dexie');
+// var Dexie = require('dexie');
 require('./index.less');
 var app = 'app';
 module.exports = app;
@@ -38,6 +39,7 @@ angular
   .module(app, ['ui.router', 'angular.filter', 'ui.bootstrap',
     'infinite-scroll', 'LocalStorageModule'
   ])
+  .constant('localforage', localforage)
   .config(routesConfig)
   .config(dbConfig)
   .component('app', hello)
