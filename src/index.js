@@ -31,7 +31,7 @@ var app = 'app';
 module.exports = app;
 
 Parse.initialize('MbAe6hoy43d3uInM0TISC1dBePxocl4eLL4B0Tig', 'bdKP5OkzKFPQt4RKURwhK7blDLTr6xScCxNuSPwY');
-Parse.serverURL = 'http://192.168.1.3:1337/parse';
+Parse.serverURL = 'http://192.168.1.5:1337/parse';
 
 // var db = new Dexie('cherokeeDB');
 //   db.version(1).stores({
