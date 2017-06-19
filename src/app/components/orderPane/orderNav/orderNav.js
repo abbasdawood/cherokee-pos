@@ -48,17 +48,18 @@ function orderNavController($scope, $log, $rootScope, OrderService, $uibModal, $
 
     };
     this.new = false;
-    this.createOrder = function () {
-            $log.log(vm.style);
-        // OrderService
-        //     .createOrder(style)
-        //     .then(function (response) {
-        //         $log.log(response);
-        //         $location.search('order', response.data.objectId);
-        //     })
-        //     .catch(function (error) {
-        //         $log.error(error);
-        //     });
+    this.createOrder = function (newStyle) {
+            $log.log(vm.newStyle);
+        OrderService
+            .createOrder(newStyle)
+            .then(function (response) {
+                $log.log(response);
+                $location.search('order', response.data.objectId);
+                vm.pageLoad();
+            })
+            .catch(function (error) {
+                $log.error(error);
+            });
     };
     this.selectOrder = function (order) {
         $log.log(order);
