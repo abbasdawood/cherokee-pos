@@ -7,6 +7,10 @@ function productCategoryController($scope, $log, StockService, localStorageServi
   this.cart = [];
   this.cartCount = 0;
   this.c = {};
+  /**
+   * assigns color to a category and saves it in an object with key as category and value as color
+   * @return {null} no return type it stores the object in a variable that can be used.
+   */
   this.colorMap = function () {
     var categories = Parse.User.current().get('categories');
     var colors = angular.fromJson(localStorageService.get('colors'));
