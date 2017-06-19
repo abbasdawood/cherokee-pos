@@ -2,11 +2,11 @@
     <h4>{{$ctrl.text}}</h4>
     <button class="btn btn-warning" type="button" ng-click="$ctrl.new = !$ctrl.new"> + new </button>
     <div ng-show="$ctrl.new">
-        <label class="btn btn-success" ng-model="$ctrl.orderStyle" uib-btn-radio="'inStore'" uncheckable>Instore</label>
-        <label class="btn btn-success" ng-model="$ctrl.orderStyle" uib-btn-radio="'delivery'" uncheckable>Delivery</label>
-        <label class="btn btn-success" ng-model="$ctrl.orderStyle" uib-btn-radio="'multi'" uib-uncheckable>Multi</label>
-        <label class="btn btn-success" ng-model="$ctrl.orderStyle" uib-btn-radio="'credit'" uib-uncheckable>Credit</label>
-        <form ng-show="$ctrl.orderStyle" ng-submit="$ctrl.createOrder(orderStyle)">
+        <label class="btn btn-success" ng-model="$ctrl.style" uib-btn-radio="'inStore'" uncheckable>Instore</label>
+        <label class="btn btn-success" ng-model="$ctrl.style" uib-btn-radio="'delivery'" uncheckable>Delivery</label>
+        <label class="btn btn-success" ng-model="$ctrl.style" uib-btn-radio="'multi'" uib-uncheckable>Multi</label>
+        <label class="btn btn-success" ng-model="$ctrl.style" uib-btn-radio="'credit'" uib-uncheckable>Credit</label>
+        <form ng-show="$ctrl.style" ng-submit="$ctrl.createOrder()">
             Table No.
             <input type="text" name="table" value="">
             <br> Reference:
