@@ -72,11 +72,11 @@ function OrderService($log, $http, CommonService) {
             };
             return $http.put(URL + ENDPOINT + 'item/' + id, body);
         },
-        createOrder: function () {
+        createOrder: function (style) {
             var order = [];
             var body = {
                 mode: 'online',
-                style: 'delivery',
+                style: style,
                 type: 'ecommerce',
                 owner: 'AS742HJVZK'
             };

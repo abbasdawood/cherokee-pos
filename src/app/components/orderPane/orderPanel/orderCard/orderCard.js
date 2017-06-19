@@ -48,21 +48,31 @@ function orderCardController($scope, $log, $rootScope, OrderService, order, $uib
         }
 
     };
+    $scope.addItem = function () {
+        $uibModalInstance.close($scope.id);
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
 
     $scope.itemId = [];
     $scope.orderId = [];
     $scope.linkItems = function (orderId, itemId) {
         if (orderId === null) {
             OrderService
-            .createOrder()
-            .then(function (response) {
-              $log.log(response.data);
-              orderId = response.data;
-            })
-            .catch(function (error) {
-              $log.log(error);
-            });
+                .createOrder()
+                .then(function (response) {
+                    $log.log(response.data);
+                    orderId = response.data;
+                })
+                .catch(function (error) {
+                    $log.log(error);
+                });
         } else {
+            orderId = order.id;
+            // getProducts();
+            // cartProducts();
             OrderService
                 .linkOrder(orderId, itemId)
                 .then(function (response) {
