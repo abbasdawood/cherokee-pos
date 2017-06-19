@@ -93,12 +93,22 @@ this.getProducts();
       this.addCartToLocal(vm.cart);
     }
   };
+  this.qtyValidation = function (index, quantity) {
+    if (quantity < 1)
+    {
+      vm.cart[index].qty = 1;
+    }
+    else if (quantity > 500) {
+      vm.cart[index].qty = 500;
+    }
+    // body...
+  };
   // this.quantityChange = function (index, change) {
   //   $log.log(index + '  ' + change)
   //   vm.cart[index].quantity += change;
   //   // body...
   // };
-  // $('#cart').affix({
+  // angular.element('#cart').affix({
   //   offset: {
   //     top: 16
   //   }

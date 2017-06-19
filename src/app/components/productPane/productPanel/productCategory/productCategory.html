@@ -10,6 +10,7 @@
                         <small class="text-muted text-capitalize">{{o.subtitle}}</small>
                     </h5>
                     <button ng-click="$ctrl.quantityChange($index, '1')">+</button>
+                    <input type="number" name="qty" ng-model="item.qty" ng-change="$ctrl.qtyValidation($index, item.qty)">
                     <button ng-click="$ctrl.quantityChange($index, '-1')" ng-disabled="item.qty===1">-</button>
                 </div>
             </div>
