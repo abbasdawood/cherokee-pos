@@ -124,8 +124,6 @@ this.getProducts();
   //     top: 16
   //   }
   // });
-
-
 }
 
 module.exports = {

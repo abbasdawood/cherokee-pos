@@ -1,6 +1,7 @@
 <div class="row">
     <!-- <h2>This is cart </h2> -->
     <div ng-class="{'hidden-md': !$ctrl.cartCount,'col-md-2': $ctrl.cartCount}">
+    <div>{{vm.cartCount}}</div>
         <div ng-repeat="item in $ctrl.cart">
             <div class="panel panel-default panel-product">
                 <div class="panel-body">
