@@ -9,7 +9,6 @@ function orderCardController($scope, $log, $rootScope, OrderService, order, $uib
 
     $scope.getItems = function () {
         $scope.list = [];
-
         OrderService
             .getOrderItems(order.id, null)
             .then(function (response) {
@@ -49,21 +48,41 @@ function orderCardController($scope, $log, $rootScope, OrderService, order, $uib
         }
 
     };
+    $scope.addItem = function () {
+        $uibModalInstance.close($scope.id);
+    };
 
-    // $scope.itemId = [];
-    // $scope.addItems = function () {
-    //     OrderService
-    //         .addOrderItems(order.itemId, null)
-    //         .then(function (response) {
-    //             angular.forEach(response.data, function (item) {
-    //                 $scope.item.push(item);
-    //                 $log.log('additem');
-    //             });
-    //         })
-    //         .catch(function (error) {
-    //             $log.log(error);
-    //         });
-    // };
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+    $scope.itemId = [];
+    $scope.orderId = [];
+    $scope.linkItems = function (orderId, itemId) {
+        if (orderId === null) {
+            OrderService
+                .createOrder()
+                .then(function (response) {
+                    $log.log(response.data);
+                    orderId = response.data;
+                })
+                .catch(function (error) {
+                    $log.log(error);
+                });
+        } else {
+            orderId = order.id;
+            // getProducts();
+            // cartProducts();
+            OrderService
+                .linkOrder(orderId, itemId)
+                .then(function (response) {
+                    $log.log(response.data);
+                })
+                .catch(function (error) {
+                    $log.log(error);
+                });
+        }
+    };
 
     // $scope.removeItem = function (itemId) {
     //     OrderService

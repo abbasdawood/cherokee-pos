@@ -1,11 +1,29 @@
 <div class="component">
-  <h4>{{$ctrl.text}}</h4>
-  <uib-tabset active="active">
-    <uib-tab index="$index + 1" ng-repeat="tab in $ctrl.style track by tab" select="$ctrl.changeStyle(tab)">
-    	<uib-tab-heading> {{tab}} </uib-tab-heading>
-  	</uib-tab>
-  </uib-tabset>
-  <div ng-repeat="order in $ctrl.orders track by $index"> 
-    <pre ng-click="$ctrl.selectOrder(order)">{{order.id}} <br> {{order.style}}</pre> 
-  </div>
+    <h4>{{$ctrl.text}}</h4>
+    <button class="btn btn-warning" type="button" ng-click="$ctrl.new = !$ctrl.new"> + new </button>
+    <div ng-show="$ctrl.new">
+        <label class="btn btn-success" ng-model="$ctrl.newStyle" uib-btn-radio="'inStore'" uncheckable>Instore</label>
+        <label class="btn btn-success" ng-model="$ctrl.newStyle" uib-btn-radio="'delivery'" uncheckable>Delivery</label>
+        <label class="btn btn-success" ng-model="$ctrl.newStyle" uib-btn-radio="'multi'" uib-uncheckable>Multi</label>
+        <label class="btn btn-success" ng-model="$ctrl.newStyle" uib-btn-radio="'credit'" uib-uncheckable>Credit</label>
+        <form ng-show="$ctrl.new" ng-submit="$ctrl.createOrder()">
+            Table No.
+            <input type="text" name="table" value="">
+            <br> Reference:
+            <input type="text" name="reference" value="">
+            <br>
+        <input type="submit" id="submit" value="Submit" />
+        </form>
+    </div>
+    <uib-tabset active="active">
+        <uib-tab index="0" select="$ctrl.changeStyle('all')">
+            <uib-tab-heading> all </uib-tab-heading>
+        </uib-tab>
+        <uib-tab index="$index + 1" ng-repeat="tab in $ctrl.style track by tab" select="$ctrl.changeStyle(tab)">
+            <uib-tab-heading> {{tab}} </uib-tab-heading>
+        </uib-tab>
+    </uib-tabset>
+    <div ng-repeat="order in $ctrl.orders track by $index">
+        <pre ng-click="$ctrl.selectOrder(order)">{{order.id}} <br> {{order.style}}</pre>
+    </div>
 </div>

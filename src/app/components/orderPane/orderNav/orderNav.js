@@ -1,7 +1,8 @@
-function orderNavController($scope, $log, $rootScope, OrderService, $uibModal) {
+function orderNavController($scope, $log, $rootScope, OrderService, $uibModal, $location) {
     var vm = this;
-    this.style = ['all', 'inStore', 'delivery', 'multi'];
+    this.style = ['inStore', 'delivery', 'multi', 'Credit'];
     this.selectedStyle = null;
+    this.reference = '0';
     this.text = 'Order Navigation panel';
     this.id = [];
     this.state = [];
@@ -46,12 +47,27 @@ function orderNavController($scope, $log, $rootScope, OrderService, $uibModal) {
         $log.log('page changeStyle text');
 
     };
-
+    this.new = false;
+    this.createOrder = function (newStyle) {
+            $log.log(vm.newStyle);
+        OrderService
+            .createOrder(newStyle)
+            .then(function (response) {
+                $log.log(response);
+                $location.search('order', response.data.objectId);
+                // vm.orders.id = response.data.objectId;
+                vm.orders.unshift(response.data);
+            })
+            .catch(function (error) {
+                $log.error(error);
+            });
+    };
     this.selectOrder = function (order) {
         $log.log(order);
         $uibModal.open({
             size: 'lg',
             keyboard: false,
+            // backdrop: false,
             templateUrl: 'app/components/orderPane/orderPanel/orderCard/orderCard.html',
             controller: 'orderCardController',
             resolve: {
@@ -59,7 +75,8 @@ function orderNavController($scope, $log, $rootScope, OrderService, $uibModal) {
                     return order;
                 }
             }
-        }).result.then(function (result) {
+        }).result.then(function (orderId) {
+            $location.search('order', orderId);
             // What happens when this modal is closed successfully
         }).catch(function (error) {
             // What happens if this is dismissed

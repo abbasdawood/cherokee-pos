@@ -72,24 +72,23 @@ function OrderService($log, $http, CommonService) {
             };
             return $http.put(URL + ENDPOINT + 'item/' + id, body);
         },
-
-
-        addOrderItems: function (items, store) {
-            return $http.post(URL + ENDPOINT + 'add', {items: items, store: store});
-        },
-        linkOrder: function (orderId, itemId) {
-            return $http.post(URL + ENDPOINT + 'linkOrder', {orderId: orderId, orderItemId: itemId});
-        },
-        createOrder: function () {
+        createOrder: function (newStyle) {
             var order = [];
             var body = {
-                mode: URL.mode,
-                style: URL.style,
-                type: URL.type,
-                owner: URL.owner
+                mode: 'online',
+                style: newStyle,
+                type: 'ecommerce',
+                owner: 'AS742HJVZK'
             };
             $log.log('creating online order');
             return $http.post(URL + ENDPOINT + 'order/' + vendor, body);
+        },
+        linkOrder: function (orderId, itemId) {
+            return $http.post(URL + ENDPOINT + 'linkOrder', { orderId: orderId, itemId: itemId });
+        },
+
+        addOrderItems: function (items, store) {
+            return $http.post(URL + ENDPOINT + 'add', { items: items, store: store });
         }
     };
 }
