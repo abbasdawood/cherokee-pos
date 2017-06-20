@@ -55,7 +55,8 @@ function orderNavController($scope, $log, $rootScope, OrderService, $uibModal, $
             .then(function (response) {
                 $log.log(response);
                 $location.search('order', response.data.objectId);
-                vm.pageLoad();
+                // vm.orders.id = response.data.objectId;
+                vm.orders.unshift(response.data);
             })
             .catch(function (error) {
                 $log.error(error);
