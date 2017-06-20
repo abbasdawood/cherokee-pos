@@ -8,7 +8,7 @@ function StockService($http, $log, $q) {
     contains, store, category) {
     $log.log('in here.....');
     var deferred = $q.defer();
-    var url = 'http://192.168.1.5:1337' + ENDPOINT + 'products/' +
+    var url = 'http://192.168.1.8:1337' + ENDPOINT + 'products/' +
       vendor + '?skip=' + skip + '&limit=' + limit;
     // + '?skip=' + skip + '&limit=' + limit;
     var config = {
