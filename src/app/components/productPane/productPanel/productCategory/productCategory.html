@@ -1,6 +1,6 @@
 <div class="row">
-    <div  ng-class="{'hidden-md': !$ctrl.cartCount,'col-md-2': $ctrl.cartCount}">
-        <!-- <h2>This is cart </h2> -->
+    <!-- <h2>This is cart </h2> -->
+    <div ng-class="{'hidden-md': !$ctrl.cartCount,'col-md-2': $ctrl.cartCount}">
         <div ng-repeat="item in $ctrl.cart">
             <div class="panel panel-default panel-product">
                 <div class="panel-body">
@@ -16,7 +16,9 @@
             </div>
         </div>
     </div>
-    <div ng-class="{'col-md-12': !$ctrl.cartCount,'col-md-9':$ctrl.cartCount}">
+    <!-- cart div ends here  -->
+    <!-- <This is products list div > -->
+    <div ng-class="{'col-md-12': !$ctrl.cartCount,'col-md-10':$ctrl.cartCount}">
         <div class="row" ng-repeat="(key, value) in $ctrl.products | groupBy: 'category' ">
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" ng-repeat="o in value" ng-click="$ctrl.cartProducts(o)">
                 <div class="panel panel-default panel-product">
@@ -27,7 +29,7 @@
                         <h5 class="text-capitalize">
                             {{o.name}}
                             <br>
-                            <small class="text-muted text-capitalize">{{o.subtitle}}</small>
+                            <small class="text-muted text-capitalize">{{o.subtitle}}</small><p align="right">{{o.rate | currency:"&#8377"}}</p>
                         </h5>
                     </div>
                 </div>
@@ -35,6 +37,7 @@
         </div>
         <div style='clear: both;'></div>
     </div>
+    <!-- product list div ends here  -->
 </div>
 <!-- <pre>{{products}}</pre> -->
 <!-- <pre>{{$ctrl.products}} using $scope</pre> -->

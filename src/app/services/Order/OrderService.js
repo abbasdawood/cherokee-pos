@@ -1,6 +1,6 @@
 var moment = require('moment');
 var vendor = '1c2a216405e85c2d7d5ca244e5258ae2';
-var URL = 'http://192.168.1.5:1337';
+var URL = 'http://192.168.1.8:1337';
 
 function OrderService($log, $http, CommonService) {
     return {

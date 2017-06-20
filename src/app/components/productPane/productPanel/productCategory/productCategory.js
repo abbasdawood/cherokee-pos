@@ -1,12 +1,20 @@
 var localforage = require('localforage');
 var Parse = require('parse');
 
-function productCategoryController($scope, $log, StockService, localStorageService, $q) {
+function productCategoryController($scope, $log, StockService, localStorageService) {
   var vm = this;
   this.products = [];
   this.cart = [];
   this.cartCount = 0;
   this.c = {};
+  // this.toast = function (message) {
+  //     $ionicLoading.show({
+  //           template: message
+  //       });
+  //     $timeout(function () {
+  //           $ionicLoading.hide();
+  //       }, 1000);
+  //   };
   /**
    * assigns color to a category and saves it in an object with key as category and value as color
    * @return {null} no return type it stores the object in a variable that can be used.
@@ -97,9 +105,12 @@ this.getProducts();
     if (quantity < 1)
     {
       vm.cart[index].qty = 1;
+      // vm.toast('Please Enter quantity greater than 1');
     }
     else if (quantity > 500) {
       vm.cart[index].qty = 500;
+      // vm.toast('Please Enter quantity less than 500');
+
     }
     // body...
   };
