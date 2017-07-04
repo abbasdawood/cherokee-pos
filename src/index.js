@@ -12,7 +12,7 @@ var login = require('./app/components/login/login');
 var Parse = require('parse');
 var localforage = require('localforage');
 var routesConfig = require('./config/routes');
-var dbConfig = require('./config/dbconfig');
+// var dbConfig = require('./config/dbconfig');
 var OrderService = require('./app/services/Order/OrderService');
 var StockService = require('./app/services/Stock/StockService');
 var AuthService = require('./app/services/Auth/AuthService');
@@ -22,7 +22,8 @@ var orderCard = require('./app/components/orderPane/orderPanel/orderCard/orderCa
 localforage.setDriver(localforage.INDEXEDDB);
 
 var localProducts = localforage.createInstance({
-  name: 'localProducts'
+  name: 'localProducts',
+  storeName: 'Products'
 });
 var localOrders = localforage.createInstance({
   name: 'localOrders'
@@ -36,18 +37,20 @@ require('jquery');
 require('moment');
 require('ng-infinite-scroll');
 require('angular-local-storage');
+require('angularjs-scroll-glue');
+
 // var Dexie = require('dexie');
 require('./index.less');
 var app = 'app';
 module.exports = app;
 Parse.initialize('MbAe6hoy43d3uInM0TISC1dBePxocl4eLL4B0Tig', 'bdKP5OkzKFPQt4RKURwhK7blDLTr6xScCxNuSPwY');
-Parse.serverURL = 'http://192.168.1.8:1337/parse';
+Parse.serverURL = 'http://192.168.1.5:1337/parse';
 
 angular
   .module(app, ['ui.router', 'angular.filter', 'ui.bootstrap',
-    'infinite-scroll', 'LocalStorageModule'
+    'infinite-scroll', 'LocalStorageModule', 'luegg.directives'
   ])
-  .constant('ENV', { URL: '192.168.1.8:1337', OrdersDb: localOrders, ProductsDb: localProducts })
+  .constant('ENV', { serverURL: 'http://192.168.1.5:1337', OrdersDb: localOrders, ProductsDb: localProducts })
   .config(routesConfig)
   // .config(dbConfig)
   .component('app', hello)

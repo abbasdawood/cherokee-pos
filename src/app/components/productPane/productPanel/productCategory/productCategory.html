@@ -1,21 +1,24 @@
 <div class="row">
     <!-- <h2>This is cart </h2> -->
-    <div ng-class="{'hidden-md': !$ctrl.cartCount,'col-md-2': $ctrl.cartCount}">
-    <div>{{vm.cartCount}}</div>
-        <div ng-repeat="item in $ctrl.cart">
-            <div class="panel panel-default panel-product">
-                <div class="panel-body">
-                    <h5 class="text-capitalize">
+    <div id= "cart" ng-class="{'hidden-md hidden-lg': !$ctrl.cartCount,'col-md-2': $ctrl.cartCount}">
+        <div>{{$ctrl.cartCount}} {{$ctrl.cartCount === 1 ? 'item' : 'items'}} selected</div>
+        <div class="cart" scroll-glue="!glued">
+            <div ng-repeat="item in $ctrl.cart">
+                <div class="panel panel-default panel-product">
+                    <div class="panel-body">
+                        <h5 class="text-capitalize">
                         {{item.name}} x {{item.qty}}
                         <br>
                         <small class="text-muted text-capitalize">{{o.subtitle}}</small>
                     </h5>
-                    <button ng-click="$ctrl.quantityChange($index, '1')">+</button>
-                    <input type="number" name="qty" ng-model="item.qty" ng-change="$ctrl.qtyValidation($index, item.qty)">
-                    <button ng-click="$ctrl.quantityChange($index, '-1')" ng-disabled="item.qty===1">-</button>
+                        <button ng-click="$ctrl.quantityChange($index, '1')">+</button>
+                        <input type="number" name="qty" ng-model="item.qty" ng-change="$ctrl.qtyValidation($index, item.qty)">
+                        <button ng-click="$ctrl.quantityChange($index, '-1')" ng-disabled="item.qty===1">-</button>
+                    </div>
                 </div>
             </div>
         </div>
+        <button>+</button><button print-directive print-element-id="token">Print Token</button>
     </div>
     <!-- cart div ends here  -->
     <!-- <This is products list div > -->
@@ -39,6 +42,7 @@
         <div style='clear: both;'></div>
     </div>
     <!-- product list div ends here  -->
+    <button>+</button>
 </div>
 <!-- <pre>{{products}}</pre> -->
 <!-- <pre>{{$ctrl.products}} using $scope</pre> -->

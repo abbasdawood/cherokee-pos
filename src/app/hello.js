@@ -8,11 +8,11 @@ module.exports = {
             $http.defaults.headers.common['x-access-token'] = localStorageService.get('token');
         }
 
-        $log.log(ENV.ProductsDb);
-        var producDb = ENV.ProductsDb;
-        producDb
-        .setItem('some', 'thing')
-        .then(function (value) { $log.log(value); })
-        .catch(function (error) { $log.error(error); });
+        // $log.log(ENV.ProductsDb);
+        // var producDb = ENV.ProductsDb;
+        // producDb
+        // .setItem('some', 'thing')
+        // .then(function (value) { $log.log(value); })
+        // .catch(function (error) { $log.error(error); });
     }
 };

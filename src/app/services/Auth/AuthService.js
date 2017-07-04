@@ -1,10 +1,7 @@
 var Parse = require('parse');
 
-function AuthService($q, $http, localStorageService, $log) {
+function AuthService($q, $http, localStorageService, $log, ENV) {
   var ENDPOINT = '/auth/';
-  var ENV = {
-    serverURL: 'http://192.168.1.8:1337'
-  };
   return {
     signUp: function (user) {
 

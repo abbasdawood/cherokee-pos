@@ -1,7 +1,7 @@
 var localforage = require('localforage');
 var Parse = require('parse');
 
-function productCategoryController($scope, $log, StockService, localStorageService) {
+function productCategoryController($scope, $log, StockService, localStorageService, $document, ENV) {
   var vm = this;
   this.products = [];
   this.cart = [];
@@ -35,7 +35,7 @@ function productCategoryController($scope, $log, StockService, localStorageServi
   this.getProducts = function () {
     var some = [];
     $log.log('function getProducts is called ');
-    localforage
+    ENV.ProductsDb
       .iterate(function (value, key, iterationNumber) {
         // $log.log(value.name);
         var color = _.property(value.category)(vm.c);
@@ -57,7 +57,7 @@ function productCategoryController($scope, $log, StockService, localStorageServi
       });
   };
 
-this.getProducts();
+  this.getProducts();
 
   /**
    * add cart array into localStorage
@@ -82,9 +82,9 @@ this.getProducts();
         name: cartProduct.name,
         qty: 1
       });
-      vm.cartCount++;
       $log.log('not found in cart so adding it');
     }
+    vm.cartCount++;
     this.addCartToLocal(vm.cart);
   };
   /**
@@ -102,28 +102,24 @@ this.getProducts();
     }
   };
   this.qtyValidation = function (index, quantity) {
-    if (quantity < 1)
-    {
+    if (quantity < 1) {
       vm.cart[index].qty = 1;
       // vm.toast('Please Enter quantity greater than 1');
-    }
-    else if (quantity > 500) {
+    } else if (quantity > 500) {
       vm.cart[index].qty = 500;
       // vm.toast('Please Enter quantity less than 500');
 
     }
     // body...
   };
-  // this.quantityChange = function (index, change) {
-  //   $log.log(index + '  ' + change)
-  //   vm.cart[index].quantity += change;
-  //   // body...
-  // };
+
   // angular.element('#cart').affix({
   //   offset: {
   //     top: 16
   //   }
   // });
+  // var objDiv = $document.getElementById('cart');
+  // objDiv.scrollTop = objDiv.scrollHeight;
 }
 
 module.exports = {
