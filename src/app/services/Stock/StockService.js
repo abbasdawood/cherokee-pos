@@ -1,6 +1,6 @@
 var localforage = require('localforage');
 
-function StockService($http, $log, $q) {
+function StockService($http, $log, $q, lf) {
 
   var service = this;
 
@@ -8,7 +8,7 @@ function StockService($http, $log, $q) {
     contains, store, category) {
     $log.log('in here.....');
     var deferred = $q.defer();
-    var url = 'http://192.168.1.8:1337' + ENDPOINT + 'products/' +
+    var url = 'http://192.168.1.5:1337' + ENDPOINT + 'products/' +
       vendor + '?skip=' + skip + '&limit=' + limit;
     // + '?skip=' + skip + '&limit=' + limit;
     var config = {
@@ -35,7 +35,7 @@ function StockService($http, $log, $q) {
       //     deferred.resolve({ code: 100, message: 'Products already synced' });
       //   } else {
       // if (Offline.state === 'up') {
-      localforage.clear()
+      lf.ProductsDb.clear()
         .then(function () {
           $log.log('getting products...');
           service.getProducts(0, 1000, null, null, null, null, null, null, null)
@@ -44,7 +44,7 @@ function StockService($http, $log, $q) {
               var products = response.data;
               _.each(products, function (product) {
                 // $log.log('putting ');
-                localforage.setItem(product.id, product);
+                lf.ProductsDb.setItem(product.id, product);
               });
             });
           deferred.resolve({ code: 200, message: 'All products synced successfully' });

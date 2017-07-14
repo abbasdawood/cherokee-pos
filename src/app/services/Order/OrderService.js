@@ -1,8 +1,8 @@
 var moment = require('moment');
 var vendor = '1c2a216405e85c2d7d5ca244e5258ae2';
-var URL = 'http://192.168.1.8:1337';
+var URL = 'http://192.168.1.5:1337';
 
-function OrderService($log, $http, CommonService) {
+function OrderService($log, $http, CommonService, lf, $q) {
     return {
         getOrders: function (skip, limit, state, user, storeId, complete, date, style, correctedTime) {
             $log.log(skip + ' limit ' + limit + ' style ' + style);
@@ -72,17 +72,31 @@ function OrderService($log, $http, CommonService) {
             };
             return $http.put(URL + ENDPOINT + 'item/' + id, body);
         },
-        createOrder: function (newStyle) {
-            var order = [];
-            var body = {
-                mode: 'online',
-                style: newStyle,
-                type: 'ecommerce',
-                owner: 'AS742HJVZK'
-            };
-            $log.log('creating online order');
-            return $http.post(URL + ENDPOINT + 'order/' + vendor, body);
-        },
+        // createOrder: function (newStyle) {
+        //     var order = [];
+        //     var body = {
+        //         mode: 'online',
+        //         style: newStyle,
+        //         type: 'ecommerce',
+        //         owner: 'AS742HJVZK'
+        //     };
+        //     $log.log('creating online order');
+        //     return $http.post(URL + ENDPOINT + 'order/' + vendor, body);
+        // },
+        // createOrder: function (newStyle) {
+        //     var deferred = $q.defer();
+        //     var id = 0;
+        //     id++;
+        //     .then(function (response) {
+        //         lf.OrdersDb
+        //             .setItem(id, { style: newStyle, items: ['itemId1', 'itemId2'] });
+        //         deferred.resolve({ code: 200, message: 'oreder created successfully' });
+        //     });
+        //     .catch(function (error) {
+        //         $log.error(error);
+        //         deferred.reject({ code: 300, message: 'error' });
+        //     });
+        // },
         linkOrder: function (orderId, itemId) {
             return $http.post(URL + ENDPOINT + 'linkOrder', { orderId: orderId, itemId: itemId });
         },

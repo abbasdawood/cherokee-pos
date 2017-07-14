@@ -1,7 +1,7 @@
 var localforage = require('localforage');
 var Parse = require('parse');
 
-function productCategoryController($scope, $log, StockService, localStorageService) {
+function productCategoryController($scope, $log, StockService, localStorageService, lf) {
   var vm = this;
   this.products = [];
   this.cart = [];
@@ -35,7 +35,7 @@ function productCategoryController($scope, $log, StockService, localStorageServi
   this.getProducts = function () {
     var some = [];
     $log.log('function getProducts is called ');
-    localforage
+    lf.ProductsDb
       .iterate(function (value, key, iterationNumber) {
         // $log.log(value.name);
         var color = _.property(value.category)(vm.c);
